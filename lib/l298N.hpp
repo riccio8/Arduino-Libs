@@ -115,7 +115,8 @@ void loop() {
 }
 
 
-
+MORE INFO AT:
+https://www.handsontec.com/dataspecs/L298N%20Motor%20Driver.pdf
 
 
 */
