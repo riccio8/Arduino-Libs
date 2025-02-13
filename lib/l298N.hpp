@@ -23,6 +23,16 @@ public:
 
     void enableB();
     void disableB();
+
+    void disable() {
+        disableA();
+        disableB();
+    }
+
+    void enable() {
+        enableA();
+        enableB();
+    }
 };
 
 Motor::Motor(MotorPins _motorA, MotorPins _motorB) {
