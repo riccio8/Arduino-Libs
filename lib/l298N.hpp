@@ -31,6 +31,20 @@ public:
     void enableB();
     void disableB();
 
+
+    void brakeA();  // functions for braking the motor
+    void brakeB();
+
+
+    // speed: 128 is 50% speed, 255 is 100% speed, 0 is 0% speed
+    void speedA(int speed); // function for setting the speed of motor A
+    void speedB(int speed); // function for setting the speed of motor B
+
+    void smoothEnableA(int targetSpeed, int stepDelay = 10); // function for enabling the motor with smooth acceleration
+    
+    void smoothEnableB(int targetSpeed, int stepDelay = 10); 
+
+
     void disable() {  // function for disabling both motors
         disableA();
         disableB();
@@ -40,6 +54,24 @@ public:
         enableA();
         enableB();
     }
+
+
+    void autoReverseA(int speed, int duration) {
+        speedA(speed);
+        clockwiseA();
+        delay(duration);
+        counterClockwiseA();
+        delay(duration);
+    }
+
+    void autoReverseB(int speed, int duration) {
+        speedB(speed);
+        clockwiseB();
+        delay(duration);
+        counterClockwiseA();
+        delay(duration);
+    }
+    
 };
 
 Motor::Motor(MotorPins _motorA, MotorPins _motorB) {
@@ -100,6 +132,47 @@ void Motor::enableB() {
 void Motor::disableB() {
     if (motorB.enable != -1) {
         digitalWrite(motorB.enable, LOW);
+    }
+}
+
+
+void Motor::brakeA() {
+    digitalWrite(motorA.in1, HIGH);
+    digitalWrite(motorA.in2, HIGH);
+}
+
+void Motor::brakeB() {
+    if (motorB.enable != -1) {
+        digitalWrite(motorB.in1, HIGH);
+        digitalWrite(motorB.in2, HIGH);
+    }
+}
+
+
+void Motor::speedA(int speed = 255) {  // Speed da 0 a 255
+    analogWrite(motorA.enable, constrain(speed, 0, 255));
+}
+
+void Motor::speedB(int speed = 255) {
+    if (motorB.enable != -1) {
+        analogWrite(motorB.enable, constrain(speed, 0, 255));
+    }
+}
+
+
+void Motor::smoothEnableA(int targetSpeed, int stepDelay = 10) {
+    for (int speed = 0; speed <= targetSpeed; speed += 5) {
+        enableA(speed);
+        delay(stepDelay);
+    }
+}
+
+void Motor::smoothEnableB(int targetSpeed, int stepDelay = 10) {
+    if (motorB.enable != -1) {
+        for (int speed = 0; speed <= targetSpeed; speed += 5) {
+            enableB(speed);
+            delay(stepDelay);
+        }
     }
 }
 
