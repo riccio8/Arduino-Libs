@@ -149,11 +149,11 @@ void Motor::brakeB() {
 }
 
 
-void Motor::speedA(int speed = 255) {  // Speed da 0 a 255
+void Motor::speedA(int speed = 255) {  // Speed from 0 to 255
     analogWrite(motorA.enable, constrain(speed, 0, 255));
 }
 
-void Motor::speedB(int speed = 255) {
+void Motor::speedB(int speed = 255) { // Speed setted using PWM 
     if (motorB.enable != -1) {
         analogWrite(motorB.enable, constrain(speed, 0, 255));
     }
