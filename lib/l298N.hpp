@@ -7,10 +7,11 @@ struct MotorPins { // struct for storing motor pin numbers so u don't have to re
 class Motor {
 private:        // private variables where u store the pin numbers for each motor
     MotorPins motorA;
-    MotorPins motorB;
+    MotorPins motorB; // motor B is optional
 
 public:
-    Motor(MotorPins _motorA, MotorPins _motorB); // constructor for the motor class
+    Motor(MotorPins _motorA, MotorPins _motorB = {-1, -1, -1}); // constructor for the motor class
+    //motorB is optional, if it's not initialized, motorB will be set to {-1, -1, -1} as default so it won't be seen as a valid motor and won't cause any issues
 
     void clockwiseA();      // functions for rotating the motors
     void counterClockwiseA();   // functions for rotating the motors counter-clockwise
@@ -44,9 +45,11 @@ Motor::Motor(MotorPins _motorA, MotorPins _motorB) {
     pinMode(motorA.in1, OUTPUT);
     pinMode(motorA.in2, OUTPUT);
 
-    pinMode(motorB.enable, OUTPUT);
-    pinMode(motorB.in1, OUTPUT);
-    pinMode(motorB.in2, OUTPUT);
+    if (motorB.enable != -1) { // Verify if motor B has been initialized
+        pinMode(motorB.enable, OUTPUT);
+        pinMode(motorB.in1, OUTPUT);
+        pinMode(motorB.in2, OUTPUT);
+    }
 }
 
 void Motor::clockwiseA() {
@@ -60,14 +63,19 @@ void Motor::counterClockwiseA() {
 }
 
 void Motor::clockwiseB() {
-    digitalWrite(motorB.in1, HIGH);
-    digitalWrite(motorB.in2, LOW);
+    if (motorB.enable != -1) {  // Verify if motor B has been initialized
+        digitalWrite(motorB.in1, HIGH);
+        digitalWrite(motorB.in2, LOW);
+    }
 }
 
 void Motor::counterClockwiseB() {
-    digitalWrite(motorB.in1, LOW);
-    digitalWrite(motorB.in2, HIGH);
+    if (motorB.enable != -1) {  // Verify if motor B has been initialized
+        digitalWrite(motorB.in1, LOW);
+        digitalWrite(motorB.in2, HIGH);
+    }
 }
+
 
 void Motor::enableA() {
     digitalWrite(motorA.enable, HIGH);
@@ -78,12 +86,17 @@ void Motor::disableA() {
 }
 
 void Motor::enableB() {
-    digitalWrite(motorB.enable, HIGH);
+    if (motorB.enable != -1) {
+        digitalWrite(motorB.enable, HIGH);
+    }
 }
 
 void Motor::disableB() {
-    digitalWrite(motorB.enable, LOW);
+    if (motorB.enable != -1) {
+        digitalWrite(motorB.enable, LOW);
+    }
 }
+
 
 
 
