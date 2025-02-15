@@ -17,6 +17,8 @@ https://www.nongnu.org/avr-libc/user-manual/malloc.html
 
 https://docs.arduino.cc/learn/programming/memory-guide/
 */
+#pragma once 
+
 
 #include "memory.hpp"
 
