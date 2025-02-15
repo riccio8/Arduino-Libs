@@ -14,6 +14,8 @@ __bss_start, __bss_end: Define the start and end of the .bss section.
 __data_start, __data_end: Define the start and end of the .data section (initialized global/static variables).
 malloc
 https://www.nongnu.org/avr-libc/user-manual/malloc.html
+
+https://docs.arduino.cc/learn/programming/memory-guide/
 */
 
 #include "memory.hpp"
