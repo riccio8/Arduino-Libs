@@ -21,8 +21,17 @@ https://docs.arduino.cc/learn/programming/memory-guide/
 
 
 #include "memory.hpp"
+// #include <FlashIAP.h>
+// #include <FlashIAPBlockDevice.h>
 
-
+// AVR (like ATmega328p) specific memory var, other arch may have different names
+extern char __bss_start;
+extern char __bss_end;
+extern char __data_end;
+extern char __data_start;
+extern char __heap_start;
+extern char* __brkval;
+extern char __heap_end;
 
 int freeMemory() {
     int free_memory;
@@ -51,13 +60,6 @@ int usedMemory() {
     return ((int)&__bss_end) - ((int)&__data_end); // __bss_end is the end of the .bss section, and __data_end is the end of the .data section, soo the difference between them is the used memory, u should note that it's an hirarchial calculation
 } 
 
-int largestFreeBlock() {
-    char *heap_top = (char *)sbrk(0);
-    char stack_bottom;
-    return &stack_bottom - heap_top; // the difference between the stack bottom and the heap top is the largest free block
-}
-
-
 /*Conceptually, the calculation is based on the fact that free memory is the space separating the stack (which grows to lower addresses) from the heap (which grows to higher addresses).*/
 
 
@@ -72,6 +74,7 @@ MEMORY OPTIMIZATION:
 5. Use the PROGMEM attribute to store large data in flash memory so u won't consume the RAM
 6. Use the PSTR() macro to store strings in flash memory
 7. Don't call malloc, calloc, realloc too much, they are slow and can cause memory fragmentation
+8. Use FlashIAP.h and FlashIAPBlockDevice.h
 
-eeprom and flash memory have limited write cycles, so use them wisely, circa 100,000 write cycles for eeprom and circa 10,000 write cycles for flash memory
+eeprom  and flash memory have limited write cycles, so use them wisely, circa 100,000 write cycles for eeprom and circa 10,000 write cycles for flash memory
 */
