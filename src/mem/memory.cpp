@@ -57,3 +57,19 @@ int largestFreeBlock() {
 
 
 /*Conceptually, the calculation is based on the fact that free memory is the space separating the stack (which grows to lower addresses) from the heap (which grows to higher addresses).*/
+
+
+
+
+/*
+MEMORY OPTIMIZATION:
+1. Use the smallest data type possible, do not use long (4 bytes) if you can use int (2 bytes) or char (1 byte).
+2. Use static or const variables whenever possible
+3. Minimize the declaration of global variables
+4. Use the F() macro to store strings in flash memory
+5. Use the PROGMEM attribute to store large data in flash memory so u won't consume the RAM
+6. Use the PSTR() macro to store strings in flash memory
+7. Don't call malloc, calloc, realloc too much, they are slow and can cause memory fragmentation
+
+eeprom and flash memory have limited write cycles, so use them wisely, circa 100,000 write cycles for eeprom and circa 10,000 write cycles for flash memory
+*/
