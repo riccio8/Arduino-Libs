@@ -1,0 +1,43 @@
+# Datatypes
+MotorPins    KEYWORD1
+Motor        KEYWORD1
+
+# Functions
+freeMemory   KEYWORD2
+freeHeap     KEYWORD2
+usedHeap     KEYWORD2
+heapSize     KEYWORD2
+usedMemory   KEYWORD2
+
+clockwiseA   KEYWORD2
+counterClockwiseA   KEYWORD2
+clockwiseB   KEYWORD2
+counterClockwiseB   KEYWORD2
+
+enableA      KEYWORD2
+disableA     KEYWORD2
+enableB      KEYWORD2
+disableB     KEYWORD2
+enable       KEYWORD2
+disable      KEYWORD2
+
+brakeA       KEYWORD2
+brakeB       KEYWORD2
+
+speedA       KEYWORD2
+speedB       KEYWORD2
+
+smoothEnableA  KEYWORD2
+smoothEnableB  KEYWORD2
+
+autoReverseA  KEYWORD2
+autoReverseB  KEYWORD2
+
+# Special AVR Memory Variables
+__bss_start   LITERAL1
+__bss_end     LITERAL1
+__data_end    LITERAL1
+__data_start  LITERAL1
+__heap_start  LITERAL1
+__brkval      LITERAL1
+__heap_end    LITERAL1
